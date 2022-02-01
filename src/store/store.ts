@@ -1,9 +1,5 @@
 // Standard interface and functions
-export interface Todo {
-  id: number;
-  text: string;
-  done: boolean;
-}
+import { Todo } from "./types";
 
 export const updateTodo = (todos: Todo[], id: number, text: string): Todo[] =>
   todos.map((todo) => ({
