@@ -1,5 +1,6 @@
 // Standard interface and functions
-import { Todo } from "./types";
+import { ActionTypes, ADD_TODO, DELETE_TODO, SET_NEWTODO, SET_TODOS, TOGGLE_TODO, UPDATE_TODO } from "./actions";
+import { Store, Todo } from "./types";
 
 export const updateTodo = (todos: Todo[], id: number, text: string): Todo[] =>
   todos.map((todo) => ({
@@ -24,3 +25,46 @@ export const addTodo = (todos: Todo[], text: string): Todo[] => [
     done: false,
   },
 ];
+
+// Redux Reducer Implementation
+const initialState = {
+  todos: [],
+  newTodo: ""
+}
+const todoReducer = (state: Store = initialState, action: ActionTypes) => {
+  switch (action.type) {
+    case SET_TODOS:
+      return {
+        ...state,
+        todos: action.payload
+      };
+    case SET_NEWTODO:
+      return {
+        ...state,
+        newTodo: action.payload
+      };
+    case UPDATE_TODO:
+      return {
+        ...state,
+        todos: updateTodo(state.todos, action.payload.id, action.payload.text)
+      };
+    case TOGGLE_TODO:
+      return {
+        ...state,
+        todos: toggleTodo(state.todos, action.payload)
+      };
+    case DELETE_TODO:
+      return {
+        ...state,
+        todos: removeTodo(state.todos, action.payload)
+      };
+    case ADD_TODO:
+      return {
+        ...state,
+        newTodo: "",
+        todos: addTodo(state.todos, state.newTodo),
+      };
+    default:
+      return state;
+  }
+}

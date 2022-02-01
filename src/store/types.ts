@@ -3,3 +3,8 @@ export interface Todo {
   text: string;
   done: boolean;
 }
+
+export interface Store {
+  todos: Todo[];
+  newTodo: string
+}

@@ -20,3 +20,31 @@ export type ActionTypes =
     }
   | { type: typeof TOGGLE_TODO; payload: number }
   | { type: typeof SET_NEWTODO; payload: string }
+
+// Action Creators
+
+export const addTodo = (): ActionTypes => ({ type: ADD_TODO });
+
+export const deleteTodo = ( id: number ): ActionTypes => ({ 
+  type: DELETE_TODO, 
+  payload: id 
+});
+
+export const updateTodo = ( id: number, text: string ): ActionTypes => ({ 
+  type: UPDATE_TODO, 
+  payload: {
+    id, 
+    text
+  }
+});
+
+export const toggleTodo = ( id: number ): ActionTypes => ({
+  type: TOGGLE_TODO,
+  payload: id
+});
+
+export const setNewTodo = ( text: string ): ActionTypes => ({
+  type: SET_NEWTODO,
+  payload: text
+});
+
