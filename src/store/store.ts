@@ -1,23 +1,25 @@
+import { createStore } from "redux";
+
 // Standard interface and functions
 import { ActionTypes, ADD_TODO, DELETE_TODO, SET_NEWTODO, SET_TODOS, TOGGLE_TODO, UPDATE_TODO } from "./actions";
 import { Store, Todo } from "./types";
 
-export const updateTodo = (todos: Todo[], id: number, text: string): Todo[] =>
+const updateTodo = (todos: Todo[], id: number, text: string): Todo[] =>
   todos.map((todo) => ({
     ...todo,
     text: todo.id === id ? text : todo.text,
   }));
 
-export const toggleTodo = (todos: Todo[], id: number): Todo[] =>
+const toggleTodo = (todos: Todo[], id: number): Todo[] =>
   todos.map((todo) => ({
     ...todo,
     done: todo.id === id ? !todo.done : todo.done,
   }));
 
-export const removeTodo = (todos: Todo[], id: number): Todo[] =>
+const removeTodo = (todos: Todo[], id: number): Todo[] =>
   todos.filter((todo) => todo.id !== id);
 
-export const addTodo = (todos: Todo[], text: string): Todo[] => [
+const addTodo = (todos: Todo[], text: string): Todo[] => [
   ...todos,
   {
     id: Math.max(0, Math.max(...todos.map(({ id }) => id))) + 1,
@@ -31,6 +33,7 @@ const initialState = {
   todos: [],
   newTodo: ""
 }
+
 const todoReducer = (state: Store = initialState, action: ActionTypes) => {
   switch (action.type) {
     case SET_TODOS:
@@ -68,3 +71,7 @@ const todoReducer = (state: Store = initialState, action: ActionTypes) => {
       return state;
   }
 }
+
+const store = createStore(todoReducer);
+
+export default store;
