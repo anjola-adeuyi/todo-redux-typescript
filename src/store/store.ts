@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from "redux-thunk";
 
 // Standard interface and functions
@@ -73,6 +74,6 @@ const todoReducer = (state: Store = initialState, action: ActionTypes) => {
   }
 }
 
-const store = createStore(todoReducer, applyMiddleware(thunk));
+const store = createStore(todoReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 export default store;
